@@ -1,0 +1,57 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class GuessingGame {
+  public static void main(String[] args) {
+    // Initialize variables
+    int numberOfRounds = 0;
+    int numberOfWins = 0;
+    int attemptsPerRound = 5;
+    Random rand = new Random();
+    Scanner scanner = new Scanner(System.in);
+
+    // Loop until the user decides to stop playing
+    while (true) {
+      // Generate a random number between 1 and 100
+      int secretNumber = rand.nextInt(100) + 1;
+
+      // Initialize a variable to store the user's guess
+      int userGuess = 0;
+
+      // Loop until the user guesses the correct number or runs out of attempts
+      int attemptsTaken = 0;
+      for (int i = 0; i < attemptsPerRound; i++) {
+        // Prompt the user to enter their guess
+        System.out.print("Enter your guess (1-100) (Attempt " + (i+1) + " of " + attemptsPerRound + "): ");
+        userGuess = scanner.nextInt();
+
+        // Compare the user's guess with the secret number
+        attemptsTaken++;
+        if (userGuess == secretNumber) {
+          System.out.println(" Congratulations! You guessed the correct number!");
+          numberOfWins++;
+          break; // exit the loop
+        } else if (userGuess < secretNumber) {
+          System.out.println("Too low! Try again.");
+        } else {
+          System.out.println("Too high! Try again.");
+        }
+      }
+
+      // Increment the number of rounds
+      numberOfRounds++;
+
+      // Display the user's score
+      System.out.println("Your score: " + numberOfWins + " out of " + numberOfRounds);
+
+      // Prompt the user to play again
+      System.out.print("Do you want to play again? (yes/no): ");
+      String playAgain = scanner.next();
+
+      // Exit the loop if the user doesn't want to play again
+      if (!playAgain.equalsIgnoreCase("yes")) {
+        break;
+      }
+    }
+  }
+}
